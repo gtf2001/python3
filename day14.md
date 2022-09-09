@@ -1,0 +1,200 @@
+# 面向对象的特性
+
+~~~markdown
+三大特性：封装、继承、多态
+- 什么是面向对象
+	封装、继承、多态
+~~~
+
+## 封装
+
+~~~markdown
+1. 任何对象都有一个边界，把属性和方法保护在边界之内，称为封装
+		数据隐藏
+2. 封装的粒度
+		1. 粒度过小：造成每个单个对象过于简单，让开发过程和使用过程过于复杂
+		2. 粒度过大：对象过于复杂，使用过程过于简单
+~~~
+
+## 继承
+
+~~~markdown
+类
+猫类、狗类、动物类、生物类	满足 ？？？ is a ？？？的关系
+
+父类：更加的抽象
+子类：更加的特殊、具体。子类继承父类的一些特性。
+
+class 子类类名(父类类名):
+
+父类：基类，超类，BaseClass
+object：是所有类的父类、基类、超类---根类
+~~~
+
+~~~python
+class Teacher:
+    def study(self):
+        print('我会学习')
+
+class Student(Teacher):
+    def eat_shit(self):
+        print('我会吃*')
+
+tao = Student()
+tao.eat_shit()
+tao.study()
+~~~
+
+- 继承的特点
+
+~~~markdown
+1. 子类可以继承父类的成员
+2. 子类能不能继承父类的私有成员
+3. 具有扩展性
+	父类扩展了子类
+4. 父类可以拥有多个子类，子类也可以拥有多个父类
+5. 如果子类有构造方法则使用子类的构造方法，如果子类没有构造方法，则向父类调用构造方法
+6. 如果子类没有写出任何的继承关系，默认继承object类
+	object类中有构造方法
+7. 子类可以调用父类的成员
+		1. 属性
+		2. 方法
+~~~
+
+~~~python
+class Teacher1:
+    # 父
+    def __init__(self,yanzhi,money,hahaha):
+        self.yanzhi = yanzhi
+        self.__money = money
+        self.salary = self.__money*2
+
+    def play(self,yanzhi):
+        print('我会唱')
+        self.yanzhi = yanzhi
+
+    def study(self):
+        print('我会学习')
+
+class Boy_Student(Teacher1):
+    pass
+    # 孙
+    # def __init__(self,zhishang):
+    #     self.zhishang = zhishang
+
+    # def eat_shit(self):
+    #     print('我会吃*')
+    #     print(self.zhishang)
+
+# class Girl_Student(Teacher):
+#     pass
+tao = Boy_Student(10,20,300)
+# tao.play(20)
+# tao.eat_shit()
+print(tao.salary)
+print(tao.yanzhi)
+
+
+
+
+# meng = Teacher()
+#
+# tao = Boy_Student()
+# fei = Girl_Student()
+# tao.eat_shit()
+# tao.study()
+# tao.yanzhi = 0
+# fei.study()
+# print(tao.tizhong)
+# print(tao.yanzhi)
+~~~
+
+- 多继承
+
+~~~markdown
+1. 钻石继承问题(菱形继承问题)
+		子类可以继承多个父类，且多个父类又继承了同一个父类
+		导致：
+			越高级的父类，会被创建的次数越多。大量的浪费空间。
+			多继承的形势下资源被浪费的问题
+2. 解决方案：
+		super的底层，通过mro解决继承的调用问题
+		mro：继承链式关系---在整个继承网上，所有的类只会出现一次
+		super()的用法是指根据链式关系，调用本类右侧的类
+~~~
+
+~~~python
+class Grand:
+    def __init__(self):
+        super().__init__()
+        print('grand')
+
+
+class f1(Grand):
+    def __init__(self):
+        super().__init__()
+        print('f1')
+
+
+class f2(Grand):
+    def __init__(self):
+        super().__init__()
+        print('f2')
+
+
+class f3(Grand):
+    def __init__(self):
+        super().__init__()
+        print('f3')
+
+
+class f4(Grand):
+    def __init__(self):
+        super().__init__()
+        print('f4')
+
+
+class sun(f1, f2, f3, f4):
+    def __init__(self):
+        super().__init__()
+        print('sun')
+
+s = sun()
+print(s)
+print(sun.mro())
+~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
